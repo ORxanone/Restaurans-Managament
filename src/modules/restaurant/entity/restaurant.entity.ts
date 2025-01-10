@@ -1,6 +1,7 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
-import { Column, Entity } from 'typeorm';
+import { MenuEntity } from 'modules/menu/entity/menu.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('Restaurant')
 export class RestaurantEntity extends BaseEntity {
@@ -27,4 +28,7 @@ export class RestaurantEntity extends BaseEntity {
   @Column({ default: true })
   @IsBoolean()
   isActive: boolean;
+
+  @OneToMany(() => MenuEntity, (menu) => menu.restaurant)
+  menus: MenuEntity[];
 }
