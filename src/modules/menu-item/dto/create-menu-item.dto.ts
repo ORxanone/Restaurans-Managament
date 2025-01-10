@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDecimal, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDecimal,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreateMenuItemDto {
   @IsString()
@@ -12,7 +18,7 @@ export class CreateMenuItemDto {
   @IsDecimal()
   @IsNotEmpty()
   @ApiProperty({
-    example: '19.34',
+    example: 19.34,
   })
   price: number;
 
@@ -27,6 +33,12 @@ export class CreateMenuItemDto {
     example: 'Delicious cheese pizza',
   })
   description: string;
+
+  @IsNumber()
+  @ApiProperty({
+    example: 1,
+  })
+  menuId: number;
 
   @IsBoolean()
   @ApiProperty({

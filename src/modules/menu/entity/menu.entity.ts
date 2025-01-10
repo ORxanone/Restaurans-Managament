@@ -1,7 +1,8 @@
 import { IsBoolean, IsDecimal, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
+import { MenuItemEntity } from 'modules/menu-item/entity/menu-item.entity';
 import { RestaurantEntity } from 'modules/restaurant/entity/restaurant.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity('Menu')
 export class MenuEntity extends BaseEntity {
@@ -16,4 +17,10 @@ export class MenuEntity extends BaseEntity {
   @ManyToOne(() => RestaurantEntity, (restaurant) => restaurant.menus)
   @JoinColumn({ name: 'restaurant_id' })
   restaurant: RestaurantEntity;
+
+  @Column({ name: 'restaurant_id' })
+  restaurantId: number;
+
+  @OneToMany(() => MenuItemEntity, (menu) => menu.menu)
+  menuIds: MenuEntity[];
 }

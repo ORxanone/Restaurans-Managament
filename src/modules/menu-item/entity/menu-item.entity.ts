@@ -25,9 +25,12 @@ export class MenuItemEntity extends BaseEntity {
   @IsBoolean()
   isActive: boolean;
 
-  @ManyToOne(() => MenuEntity, {
+  @ManyToOne(() => MenuEntity, (menu) => menu.menuIds, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'menu_id' })
   menu: MenuEntity;
+
+  @Column({ name: 'menu_id' })
+  menuId: number;
 }
