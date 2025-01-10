@@ -21,7 +21,7 @@ export class MenuItemEntity extends BaseEntity {
   @IsString()
   description: string;
 
-  @Column()
+  @Column({ default: true })
   @IsBoolean()
   isActive: boolean;
 
