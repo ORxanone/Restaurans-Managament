@@ -1,31 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { GenericService } from 'common/resource/generic-service';
-import { RestaurantEntity } from './entity/restaurant.entity';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-reataurant.dto';
+import { BranchEntity } from './entity/branch.entity';
+import { CreateBranchDto } from './dto/create-branch.dto';
+import { UpdateBranchDto } from './dto/update-branch.dto';
 import { EntityMapper } from 'common/utils/entity-mapper';
-import { RestaurantRepository } from './restaurant.repository';
+import { BranchRepository } from './branch.repository';
 import { convertToTimeZone } from 'common/utils/conertToTimeZone';
 
 @Injectable()
-export class RestaurantService extends GenericService<
-  RestaurantEntity,
-  CreateRestaurantDto,
-  UpdateRestaurantDto
+export class BranchService extends GenericService<
+  BranchEntity,
+  CreateBranchDto,
+  UpdateBranchDto
 > {
   constructor(
-    protected readonly restaurantRepository: RestaurantRepository,
+    protected readonly branchRepository: BranchRepository,
     protected readonly entityMapper: EntityMapper,
   ) {
-    super(restaurantRepository, entityMapper, RestaurantEntity);
+    super(branchRepository, entityMapper, BranchEntity);
   }
 
-  async findAll(): Promise<RestaurantEntity[]> {
-    const restData = await this.restaurantRepository.find({
-      relations: ['branches'],
+  async findAll(): Promise<BranchEntity[]> {
+    const restData = await this.branchRepository.find({
+      relations: ['menu'],
     });
     const chgTimeData = restData.map((item) => {
-      const restaurant = new RestaurantEntity();
+      const restaurant = new BranchEntity();
       Object.assign(restaurant, item, {
         createdAt: convertToTimeZone(item.createdAt, item.timeZone),
         updatedAt: convertToTimeZone(item.updatedAt, item.timeZone),
@@ -35,12 +35,12 @@ export class RestaurantService extends GenericService<
     return chgTimeData;
   }
 
-  async findById(id: number): Promise<RestaurantEntity> {
-    const restDataId = await this.restaurantRepository.findOne({
+  async findById(id: number): Promise<BranchEntity> {
+    const restDataId = await this.branchRepository.findOne({
       where: { id },
-      relations: ['branches'],
+      relations: ['menu'],
     });
-    const restaurant = new RestaurantEntity();
+    const restaurant = new BranchEntity();
     Object.assign(restaurant, restDataId, {
       createdAt: convertToTimeZone(restDataId.createdAt, restDataId.timeZone),
       updatedAt: convertToTimeZone(restDataId.updatedAt, restDataId.timeZone),

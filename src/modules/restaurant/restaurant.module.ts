@@ -5,6 +5,7 @@ import { RestaurantController } from './restaurant.controller';
 import { RestaurantService } from './restaurant.service';
 import { RestaurantRepository } from './restaurant.repository';
 import { EntityMapper } from 'common/utils/entity-mapper';
+import { BranchModule } from 'modules/branch-restaurant/branch.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RestaurantEntity])],

@@ -5,7 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from 'database';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from 'config';
-import { MenuItemModule, MenuModule, RestaurantModule } from 'modules';
+import {
+  BranchModule,
+  MenuItemModule,
+  MenuModule,
+  RestaurantModule,
+} from 'modules';
 
 @Module({
   imports: [
@@ -30,6 +35,7 @@ import { MenuItemModule, MenuModule, RestaurantModule } from 'modules';
     RestaurantModule,
     MenuModule,
     MenuItemModule,
+    BranchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

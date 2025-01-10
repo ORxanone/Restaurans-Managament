@@ -24,7 +24,9 @@ export class MenuService extends GenericService<
   }
 
   async findAll(): Promise<MenuEntity[]> {
-    const menuData = await this.menuRepo.findAll();
+    const menuData = await this.menuRepo.find({
+      relations: ['menuIds'],
+    });
     const restaurantIds = menuData.map((menu) => menu.restaurantId);
     const restaurants = await Promise.all(
       restaurantIds.map((id) => this.restaurantRepo.findById(id)),
@@ -52,7 +54,10 @@ export class MenuService extends GenericService<
   }
 
   async findById(id: number): Promise<MenuEntity> {
-    const menuDataId = await this.menuRepo.findById(id);
+    const menuDataId = await this.menuRepo.findOne({
+      where: { id },
+      relations: ['menuIds'],
+    });
     const restaurant = await this.restaurantRepo.findById(
       menuDataId.restaurantId,
     );

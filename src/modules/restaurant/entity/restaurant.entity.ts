@@ -1,5 +1,6 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
+import { BranchEntity } from 'modules/branch-restaurant/entity/branch.entity';
 import { MenuEntity } from 'modules/menu/entity/menu.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
@@ -35,4 +36,7 @@ export class RestaurantEntity extends BaseEntity {
 
   @OneToMany(() => MenuEntity, (menu) => menu.restaurant)
   menus: MenuEntity[];
+
+  @OneToMany(() => BranchEntity, (branch) => branch.restaurant)
+  branches: BranchEntity[];
 }
