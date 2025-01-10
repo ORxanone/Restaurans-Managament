@@ -3,6 +3,7 @@ import { GenericRepository } from 'common/resource/generic-repository';
 import { RestaurantEntity } from './entity/restaurant.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { convertToTimeZone } from 'common/utils/conertToTimeZone';
 
 @Injectable()
 export class RestaurantRepository extends GenericRepository<RestaurantEntity> {
@@ -12,4 +13,5 @@ export class RestaurantRepository extends GenericRepository<RestaurantEntity> {
   ) {
     super(restaurantRepo);
   }
+
 }

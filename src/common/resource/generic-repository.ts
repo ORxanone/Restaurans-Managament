@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { FindOneOptions, Repository } from "typeorm";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { Injectable } from '@nestjs/common';
+import { FindOneOptions, Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class GenericRepository<T> {

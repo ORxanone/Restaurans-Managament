@@ -10,5 +10,6 @@ import { EntityMapper } from 'common/utils/entity-mapper';
   imports: [TypeOrmModule.forFeature([RestaurantEntity])],
   controllers: [RestaurantController],
   providers: [RestaurantService, RestaurantRepository, EntityMapper],
+  exports: [RestaurantService, RestaurantRepository],
 })
 export class RestaurantModule {}

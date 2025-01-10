@@ -10,6 +10,7 @@ export class MenuEntity extends BaseEntity {
   @IsString()
   title: string;
 
+
   @Column({ default: true })
   @IsBoolean()
   isActive: boolean;

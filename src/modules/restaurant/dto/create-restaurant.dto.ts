@@ -44,6 +44,13 @@ export class CreateRestaurantDto {
   })
   email?: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty({
+    example: 'Europe/Berlin',
+  })
+  timeZone: string;
+
   @IsBoolean()
   @IsNotEmpty()
   @ApiProperty({

@@ -1,4 +1,10 @@
-import { IsBoolean, IsDecimal, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsDecimal,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
 import { MenuEntity } from 'modules/menu/entity/menu.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
@@ -32,5 +38,6 @@ export class MenuItemEntity extends BaseEntity {
   menu: MenuEntity;
 
   @Column({ name: 'menu_id' })
+  @IsNumber()
   menuId: number;
 }

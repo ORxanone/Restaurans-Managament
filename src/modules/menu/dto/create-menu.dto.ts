@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
+import { time } from 'console';
 
 export class CreateMenuDto {
   @IsString()
@@ -20,6 +21,8 @@ export class CreateMenuDto {
     example: 1,
   })
   restaurantId: number;
+
+
 
   @IsBoolean()
   @ApiProperty({

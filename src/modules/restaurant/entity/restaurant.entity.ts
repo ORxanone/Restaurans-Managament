@@ -25,6 +25,10 @@ export class RestaurantEntity extends BaseEntity {
   @IsString()
   email: string;
 
+  @Column({ nullable: false })
+  @IsString()
+  timeZone: string;
+
   @Column({ default: true })
   @IsBoolean()
   isActive: boolean;
