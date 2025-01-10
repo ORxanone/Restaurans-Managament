@@ -22,25 +22,10 @@ export class RestaurantController extends GenericController<
 
   @Get()
   async findAll(): Promise<RestaurantEntity[]> {
-    const restData = await this.restaurantService.findAll();
-    const chgTimeData = restData.map((item) => {
-      const restaurant = new RestaurantEntity();
-      Object.assign(restaurant, item, {
-        createdAt: convertToTimeZone(item.createdAt, item.timeZone),
-        updatedAt: convertToTimeZone(item.updatedAt, item.timeZone),
-      });
-      return restaurant;
-    });
-    return chgTimeData;
+    return this.restaurantService.findAll();
   }
   @Get(':id')
   async findById(id: number): Promise<RestaurantEntity> {
-    const restDataId = await this.restaurantService.findById(id);
-    const restaurant = new RestaurantEntity();
-    Object.assign(restaurant, restDataId, {
-      createdAt: convertToTimeZone(restDataId.createdAt, restDataId.timeZone),
-      updatedAt: convertToTimeZone(restDataId.updatedAt, restDataId.timeZone),
-    });
-    return restaurant;
+    return this.restaurantService.findById(id);
   }
 }
