@@ -23,6 +23,13 @@ export class MenuService extends GenericService<
     super(menuRepo, entityMapper, MenuEntity);
   }
 
+  // async create(data: CreateMenuDto) {
+  //   if(!data.branchId){
+  //       const rest = 
+  //   }
+  //   return this.menuRepo.save(this.entityMapper.toEntity(data, MenuEntity))
+  // }
+
   async findAll(): Promise<MenuEntity[]> {
     const menuData = await this.menuRepo.find({
       relations: ['menuIds'],
@@ -68,4 +75,22 @@ export class MenuService extends GenericService<
     });
     return menu;
   }
+
+  // async update(id: number, data: UpdateMenuDto): Promise<MenuEntity> {
+  //   if (!data.branchId) {
+  //     const menu = await this.menuRepo.updateById(id, data);
+  //     const menu2 = await this.menuRepo.find({
+  //       where: {
+  //         restaurantId: data.restaurantId,
+  //         id,
+  //       },
+  //     });
+  //     for (const el of menu2) {
+        
+  //     }
+  //     const menuUpdateRes = await this.menuRepo.save(this.entityMapper.toEntity(newMenu, MenuEntity))
+  //     const restaurant = await this.restaurantRepo.findById(menu.restaurantId);
+  //   }
+  //   return this.menuRepo.updateById(id, data);
+  // }
 }

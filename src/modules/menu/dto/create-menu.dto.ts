@@ -30,8 +30,6 @@ export class CreateMenuDto {
   })
   branchId: number;
 
-
-
   @IsBoolean()
   @ApiProperty({
     example: true,

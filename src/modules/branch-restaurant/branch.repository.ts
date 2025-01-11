@@ -12,4 +12,25 @@ export class BranchRepository extends GenericRepository<BranchEntity> {
   ) {
     super(branchRepository);
   }
+
+  public async findAll() {
+    return this.branchRepository
+      .createQueryBuilder('branch')
+      .leftJoinAndSelect('branch.restaurant', 'restaurant')
+      .leftJoinAndSelect('restaurant.menus', 'menu')
+      .leftJoinAndSelect('branch.menu', 'branchMenu')
+      .select(['branch', 'branchMenu', 'restaurant.title', 'menu'])
+      .getMany();
+  }
+
+  public async findId(id: number) {
+    return this.branchRepository
+      .createQueryBuilder('branch')
+      .leftJoinAndSelect('branch.restaurant', 'restaurant')
+      .leftJoinAndSelect('restaurant.menus', 'menu')
+      .leftJoinAndSelect('branch.menu', 'branchMenu')
+      .select(['branch', 'branchMenu', 'restaurant.title', 'menu'])
+      .where('branch.id = :id', { id })
+      .getOne();
+  }
 }

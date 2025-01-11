@@ -15,36 +15,45 @@ export class BranchService extends GenericService<
 > {
   constructor(
     protected readonly branchRepository: BranchRepository,
+    protected readonly restaurantRepository: BranchRepository,
     protected readonly entityMapper: EntityMapper,
   ) {
     super(branchRepository, entityMapper, BranchEntity);
   }
 
   async findAll(): Promise<BranchEntity[]> {
-    const restData = await this.branchRepository.find({
-      relations: ['menu'],
-    });
-    const chgTimeData = restData.map((item) => {
-      const restaurant = new BranchEntity();
-      Object.assign(restaurant, item, {
+    const restData = await this.branchRepository.findAll();
+
+    const chgTimeData = restData.map(async (item) => {
+      const branch = new BranchEntity();
+      const menuList = [...item.menu, ...item.restaurant.menus];
+      Object.assign(branch, item, {
         createdAt: convertToTimeZone(item.createdAt, item.timeZone),
         updatedAt: convertToTimeZone(item.updatedAt, item.timeZone),
+        menu: menuList,
       });
-      return restaurant;
+
+      delete branch.restaurant;
+      return branch;
     });
-    return chgTimeData;
+
+    const result = await Promise.all(chgTimeData);
+    return result;
   }
 
   async findById(id: number): Promise<BranchEntity> {
-    const restDataId = await this.branchRepository.findOne({
-      where: { id },
-      relations: ['menu'],
-    });
-    const restaurant = new BranchEntity();
-    Object.assign(restaurant, restDataId, {
+    const restDataId = await this.branchRepository.findId(id);
+    console.log(restDataId);
+
+    const branch = new BranchEntity();
+    const menuList = [...restDataId.menu, ...restDataId.restaurant.menus];
+
+    Object.assign(branch, restDataId, {
       createdAt: convertToTimeZone(restDataId.createdAt, restDataId.timeZone),
       updatedAt: convertToTimeZone(restDataId.updatedAt, restDataId.timeZone),
+      menu: menuList,
     });
-    return restaurant;
+    delete branch.restaurant;
+    return branch;
   }
 }

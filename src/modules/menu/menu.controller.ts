@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Patch } from '@nestjs/common';
 import { GenericController } from 'common/resource/generic-controller';
 import { MenuEntity } from './entity/menu.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
@@ -29,4 +29,9 @@ export class MenuController extends GenericController<
     async findById(id: number): Promise<MenuEntity> {
       return this.menuService.findById(id);
     }
+
+    // @Patch(':id')
+    // async update(id: number, data: UpdateMenuDto): Promise<MenuEntity> {
+    //   return this.menuService.update(id, data);
+    // }
 }

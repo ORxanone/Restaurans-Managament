@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { GenericController } from 'common/resource/generic-controller';
 import { UpdateBranchDto } from './dto/update-branch.dto';
 import { CreateBranchDto } from './dto/create-branch.dto';
@@ -16,6 +16,7 @@ export class BranchController extends GenericController<
   constructor(private readonly branchService: BranchService) {
     super(branchService);
   }
+
 
   @Get()
   async findAll(): Promise<BranchEntity[]> {
