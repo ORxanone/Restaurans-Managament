@@ -14,9 +14,21 @@ export class CreateTranslationDto {
   })
   value: string;
 
+  @IsString()
+  @ApiProperty({
+    example: 'EN',
+  })
+  language: string;
+
   @IsNumber()
   @ApiProperty({
     example: 1,
   })
-  languageId: number;
+  restaurantId: number;
+
+  @IsNumber()
+  @ApiProperty({
+    example: 1,
+  })
+  branchId: number;
 }

@@ -7,9 +7,11 @@ import { EntityMapper } from 'common/utils/entity-mapper';
 import { MenuItemRepository } from './menu-item.repository';
 import { TranslationModule } from 'modules/translation/translation.module';
 import { LanguageModule } from 'modules/language/language.module';
+import { RestaurantModule } from 'modules/restaurant/restaurant.module';
+import { BranchModule } from 'modules/branch-restaurant/branch.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MenuItemEntity]), TranslationModule, LanguageModule],
+  imports: [TypeOrmModule.forFeature([MenuItemEntity]), TranslationModule, LanguageModule, BranchModule, RestaurantModule],
   controllers: [MenuItemController],
   providers: [MenuItemService, MenuItemRepository, EntityMapper],
 })

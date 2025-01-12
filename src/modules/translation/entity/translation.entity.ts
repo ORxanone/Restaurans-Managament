@@ -16,13 +16,6 @@ export class TranslationEntity extends BaseEntity {
   @IsString()
   value: string;
 
-  // @ManyToOne(() => LanguageEntity, (language) => language.translations)
-  // @JoinColumn({ name: 'language_id' })
-  // language: LanguageEntity;
-
-  // @Column({ name: 'language_id' })
-  // languageId: number;
-
   @Column()
   @IsString()
   language: string;
@@ -45,6 +38,6 @@ export class TranslationEntity extends BaseEntity {
   @JoinColumn({ name: 'menu_item_id' })
   menuItem: MenuItemEntity;
 
-  @Column({ name: 'menu_item_id' })
+  @Column({ name: 'menu_item_id', nullable: true })
   menuItemId: number;
 }

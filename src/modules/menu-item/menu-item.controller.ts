@@ -26,4 +26,9 @@ export class MenuItemController extends GenericController<
   async getMenuItems(): Promise<MenuItemEntity[]> {
     return this.menuItemService.findAll();
   }
+
+  @Get(":id")
+  async findById(id: number): Promise<MenuItemEntity> {
+    return this.menuItemService.findById(id)
+  }
 }

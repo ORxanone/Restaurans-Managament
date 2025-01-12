@@ -30,8 +30,4 @@ export class MenuController extends GenericController<
       return this.menuService.findById(id);
     }
 
-    // @Patch(':id')
-    // async update(id: number, data: UpdateMenuDto): Promise<MenuEntity> {
-    //   return this.menuService.update(id, data);
-    // }
 }
