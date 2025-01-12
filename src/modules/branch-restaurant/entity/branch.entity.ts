@@ -3,6 +3,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { RestaurantEntity } from 'modules/restaurant/entity/restaurant.entity';
 import { MenuEntity } from 'modules/menu/entity/menu.entity';
 import { BaseEntity } from 'common/entity/base.entity';
+import { TranslationEntity } from 'modules/translation/entity/translation.entity';
+import { LanguageEntity } from 'modules/language/entity/language.entity';
 
 @Entity('BranchRestaurant')
 export class BranchEntity extends BaseEntity {
@@ -43,4 +45,11 @@ export class BranchEntity extends BaseEntity {
 
   @OneToMany(() => MenuEntity, (menu) => menu.branch)
   menu: MenuEntity[];
+
+  @OneToMany(() => TranslationEntity, (language) => language.branch)
+  translations: TranslationEntity[];
+
+  @OneToMany(()=> LanguageEntity, (language) => language.branch)
+  languages: LanguageEntity[];
+
 }

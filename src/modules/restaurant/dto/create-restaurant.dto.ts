@@ -57,4 +57,10 @@ export class CreateRestaurantDto {
     example: true,
   })
   isActive: boolean;
+
+  @IsNumber()
+  @ApiProperty({
+    example: [1, 2, 3],
+  })
+  supportedLanguages: number[];
 }

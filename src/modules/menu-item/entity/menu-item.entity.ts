@@ -7,7 +7,8 @@ import {
 } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
 import { MenuEntity } from 'modules/menu/entity/menu.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { TranslationEntity } from 'modules/translation/entity/translation.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity('MenuItem')
 export class MenuItemEntity extends BaseEntity {
@@ -37,7 +38,10 @@ export class MenuItemEntity extends BaseEntity {
   @JoinColumn({ name: 'menu_id' })
   menu: MenuEntity;
 
-  @Column({ name: 'menu_id' })
+  @Column({ name: 'menu_id' , nullable: true })
   @IsNumber()
   menuId: number;
+
+  @OneToMany(() => TranslationEntity, (language) => language.menuItem)
+  translations: TranslationEntity[];
 }

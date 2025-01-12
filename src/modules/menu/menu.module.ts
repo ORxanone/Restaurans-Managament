@@ -9,12 +9,14 @@ import { RestaurantService } from 'modules/restaurant/restaurant.service';
 import { RestaurantModule } from 'modules/restaurant/restaurant.module';
 import { RestaurantRepository } from 'modules/restaurant/restaurant.repository';
 import { RestaurantEntity } from 'modules/restaurant/entity/restaurant.entity';
+import { LanguageModule } from 'modules/language/language.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([MenuEntity]),
     TypeOrmModule.forFeature([RestaurantEntity]),
     RestaurantModule,
+    LanguageModule
   ],
   controllers: [MenuController],
   providers: [

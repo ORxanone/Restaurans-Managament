@@ -6,6 +6,8 @@ import { UpdateRestaurantDto } from './dto/update-reataurant.dto';
 import { EntityMapper } from 'common/utils/entity-mapper';
 import { RestaurantRepository } from './restaurant.repository';
 import { convertToTimeZone } from 'common/utils/conertToTimeZone';
+import { LanguageRepository } from 'modules/language/language.repository';
+import { In } from 'typeorm';
 
 @Injectable()
 export class RestaurantService extends GenericService<
@@ -15,14 +17,38 @@ export class RestaurantService extends GenericService<
 > {
   constructor(
     protected readonly restaurantRepository: RestaurantRepository,
+    protected readonly languageRepository: LanguageRepository,
     protected readonly entityMapper: EntityMapper,
   ) {
     super(restaurantRepository, entityMapper, RestaurantEntity);
   }
 
+  async createRestaurant(
+    createRestaurantDto: CreateRestaurantDto,
+  ): Promise<RestaurantEntity> {
+    const languages = await this.languageRepository.find({
+      where: { id: In(createRestaurantDto.supportedLanguages) },
+    });
+
+    // if (!languages || languages.length === 0) {
+    //   throw new Error('Languages not found');
+    // }
+    const saveDto = {
+      ...createRestaurantDto,
+      languages,
+    }
+    const restaurant = await this.restaurantRepository.save(
+      this.entityMapper.toEntity(saveDto, RestaurantEntity),
+    );
+    return restaurant;
+  }
+
   async findAll(): Promise<RestaurantEntity[]> {
     const restData = await this.restaurantRepository.find({
-      relations: ['branches'],
+      relations: ['branches', "languages"],
+      select: {
+        languages: true,
+      }
     });
     const chgTimeData = restData.map((item) => {
       const restaurant = new RestaurantEntity();
@@ -32,6 +58,7 @@ export class RestaurantService extends GenericService<
       });
       return restaurant;
     });
+
     return chgTimeData;
   }
 

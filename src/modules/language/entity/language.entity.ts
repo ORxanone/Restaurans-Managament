@@ -1,7 +1,16 @@
-import { IsString } from 'class-validator';
+import { IsArray, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
+import { BranchEntity } from 'modules/branch-restaurant/entity/branch.entity';
+import { RestaurantEntity } from 'modules/restaurant/entity/restaurant.entity';
 import { TranslationEntity } from 'modules/translation/entity/translation.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Unique,
+} from 'typeorm';
 
 @Entity('Language')
 export class LanguageEntity extends BaseEntity {
@@ -15,4 +24,18 @@ export class LanguageEntity extends BaseEntity {
 
   @OneToMany(() => TranslationEntity, (translation) => translation.language)
   translations: TranslationEntity[];
+
+  @ManyToOne(() => RestaurantEntity, (restaurant) => restaurant.languages)
+  @JoinColumn({ name: 'restaurant_id' })
+  restaurant: RestaurantEntity;
+
+  @Column({ name: 'restaurant_id' })
+  restaurantId: number;
+
+  @ManyToOne(() => BranchEntity, (branch) => branch.translations)
+  @JoinColumn({ name: 'branch_id' })
+  branch: BranchEntity;
+
+  @Column({ name: 'branch_id' , nullable: true})
+  branchId: number;
 }

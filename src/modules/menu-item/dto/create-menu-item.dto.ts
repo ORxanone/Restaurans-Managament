@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsBoolean,
   IsDecimal,
   IsNotEmpty,
@@ -40,9 +41,21 @@ export class CreateMenuItemDto {
   })
   menuId: number;
 
+  @IsNumber()
+  @ApiProperty({
+    example: 1,
+  })
+  branchId: number;
+
   @IsBoolean()
   @ApiProperty({
     example: true,
   })
   isActive: boolean;
+
+  @IsString()
+  @ApiProperty({
+    example: ['en, az'],
+  })
+  translations: { language: string; keyWord: string; value: string }[];
 }

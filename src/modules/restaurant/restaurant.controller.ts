@@ -1,11 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
 import { GenericController } from 'common/resource/generic-controller';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-reataurant.dto';
 import { RestaurantEntity } from './entity/restaurant.entity';
 import { RestaurantService } from './restaurant.service';
 import { ApiTags } from '@nestjs/swagger';
-import { convertToTimeZone } from 'common/utils/conertToTimeZone';
 
 @Controller({
   path: 'restaurants',
@@ -20,12 +19,18 @@ export class RestaurantController extends GenericController<
     super(restaurantService);
   }
 
+  @Post()
+  async createRestaurant(@Body() createRestaurantDto: CreateRestaurantDto): Promise<RestaurantEntity> {
+    return this.restaurantService.createRestaurant(createRestaurantDto);
+  }
+
   @Get()
-  async findAll(): Promise<RestaurantEntity[]> {
+  async findAll() {
     return this.restaurantService.findAll();
   }
   @Get(':id')
   async findById(id: number): Promise<RestaurantEntity> {
     return this.restaurantService.findById(id);
   }
+
 }

@@ -7,9 +7,11 @@ import { ConfigModule } from '@nestjs/config';
 import { configuration } from 'config';
 import {
   BranchModule,
+  LanguageModule,
   MenuItemModule,
   MenuModule,
   RestaurantModule,
+  TranslationModule,
 } from 'modules';
 
 @Module({
@@ -36,6 +38,8 @@ import {
     MenuModule,
     MenuItemModule,
     BranchModule,
+    LanguageModule,
+    TranslationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

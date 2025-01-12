@@ -9,4 +9,10 @@ export class CreateBranchDto extends PartialType(CreateRestaurantDto) {
     example: 1,
   })
   restaurantId: number;
+
+  @IsNumber()
+  @ApiProperty({
+    example: [1, 2, 3],
+  })
+  supportedLanguages: number[];
 }

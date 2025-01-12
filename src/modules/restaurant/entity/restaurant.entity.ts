@@ -1,7 +1,9 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity/base.entity';
 import { BranchEntity } from 'modules/branch-restaurant/entity/branch.entity';
+import { LanguageEntity } from 'modules/language/entity/language.entity';
 import { MenuEntity } from 'modules/menu/entity/menu.entity';
+import { TranslationEntity } from 'modules/translation/entity/translation.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('Restaurant')
@@ -39,4 +41,10 @@ export class RestaurantEntity extends BaseEntity {
 
   @OneToMany(() => BranchEntity, (branch) => branch.restaurant)
   branches: BranchEntity[];
+
+  @OneToMany(() => TranslationEntity, (language) => language.restaurant)
+  translations: TranslationEntity[];
+
+  @OneToMany(() => LanguageEntity, (language) => language.restaurant)
+  languages: LanguageEntity[];
 }

@@ -19,7 +19,9 @@ export class BranchRepository extends GenericRepository<BranchEntity> {
       .leftJoinAndSelect('branch.restaurant', 'restaurant')
       .leftJoinAndSelect('restaurant.menus', 'menu')
       .leftJoinAndSelect('branch.menu', 'branchMenu')
-      .select(['branch', 'branchMenu', 'restaurant.title', 'menu'])
+      .leftJoinAndSelect('branch.languages', 'language')
+      .leftJoinAndSelect('branch.translations', 'translation')
+      .select(['branch', 'branchMenu', 'restaurant.title', 'menu', 'language', 'translation'])
       .getMany();
   }
 
@@ -27,9 +29,11 @@ export class BranchRepository extends GenericRepository<BranchEntity> {
     return this.branchRepository
       .createQueryBuilder('branch')
       .leftJoinAndSelect('branch.restaurant', 'restaurant')
-      .leftJoinAndSelect('restaurant.menus', 'menu')
-      .leftJoinAndSelect('branch.menu', 'branchMenu')
-      .select(['branch', 'branchMenu', 'restaurant.title', 'menu'])
+      .leftJoinAndSelect('restaurant.menus', 'menu', "menu.branchId = :id", { id })
+      .leftJoinAndSelect('branch.menu', 'branchMenu',)
+      .leftJoinAndSelect('branch.languages', 'language', "language.branchId = :id", { id })
+      .leftJoinAndSelect('branch.translations', 'translation', "translation.branch_id = :id", { id })
+      .select(['branch', 'branchMenu', 'restaurant.title', 'menu', 'language', 'translation'])
       .where('branch.id = :id', { id })
       .getOne();
   }
