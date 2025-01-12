@@ -14,6 +14,17 @@ services:
     networks:
       - restaurant
 
+  dbgate:
+    image: dbgate/dbgate
+    container_name: dbgate
+    restart: on-failure
+    ports:
+      - '3456:3000'
+    depends_on:
+      - db
+    networks:
+      - restaurant
+
 volumes:
   db_data:
 
